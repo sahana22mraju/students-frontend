@@ -1,0 +1,7 @@
+server:
+  port: 8082
+
+api:
+  base-url: "http://localhost:8081"
+  header-name: "X-Requested-By"
+  header-value: "Student"

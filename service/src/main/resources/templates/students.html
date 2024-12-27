@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>UI Automation Elements Showcase</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+        h1, h2, h3 {
+            color: #4a4a4a;
+        }
+        p {
+            color: #6c757d;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #e9ecef;
+        }
+        table, th, td {
+            border: 1px solid #dee2e6;
+        }
+        th {
+            background-color: #343a40;
+            color: #ffffff;
+        }
+        td {
+            text-align: center;
+            padding: 10px;
+        }
+        button {
+            background-color: #17a2b8;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #138496;
+        }
+        select {
+            padding: 5px;
+            border-radius: 5px;
+        }
+        input[type="text"], textarea {
+            padding: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        input[type="radio"], input[type="checkbox"] {
+            margin-right: 5px;
+        }
+        .tooltip {
+            display: inline-block;
+            position: relative;
+            color: #ff5733;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        }
+        .popup-header {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .popup-content {
+            margin-bottom: 10px;
+        }
+        .popup button {
+            background-color: #e83e8c;
+            color: white;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .calendar {
+            border: 1px solid #6c757d;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        .drag-drop-area {
+            width: 300px;
+            height: 200px;
+            border: 2px dashed #6c757d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            color: #6c757d;
+        }
+        .draggable {
+            background-color: #ffc107;
+            padding: 10px;
+            text-align: center;
+            cursor: grab;
+            border-radius: 5px;
+        }
+        .hover-area {
+            background-color: #e9ecef;
+            border: 2px solid #6c757d;
+            padding: 20px;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        .hover-area:hover {
+            background-color: #17a2b8;
+            color: white;
+        }
+    </style>
+    <script>
+        function showPopup() {
+            document.getElementById('popup').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+        function dragStart(event) {
+            event.dataTransfer.setData("text", event.target.id);
+        }
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+        function drop(event) {
+            event.preventDefault();
+            const data = event.dataTransfer.getData("text");
+            const draggableElement = document.getElementById(data);
+            event.target.appendChild(draggableElement);
+        }
+    </script>
+</head>
+<body>
+<h1>UI Automation Elements Showcase</h1>
+
+<!-- Text Content -->
+<h2>1. Text Content</h2>
+<p>This is an example of a <code>paragraph</code>. It is used for basic text content.</p>
+<h3>Heading 3 Example</h3>
+<div>A <b>div</b> is a block container for grouping HTML elements.</div>
+<span style="color: #ff6f61;">This is a <span> tag styled with color.</span></span>
+
+<!-- Forms -->
+<h2>2. Forms</h2>
+<form>
+    <label for="username">Name:</label>
+    <input type="text" id="username" name="username"><br><br>
+    <label for="comments">Comments:</label>
+    <textarea id="comments" name="comments"></textarea><br><br>
+    <label for="gender">Gender:</label><br>
+    <input type="radio" id="male" name="gender" value="male"> Male<br>
+    <input type="radio" id="female" name="gender" value="female"> Female<br><br>
+    <label for="preferences">Preferences:</label><br>
+    <input type="checkbox" id="news" name="news"> News<br>
+    <input type="checkbox" id="updates" name="updates"> Updates<br><br>
+    <label for="country">Select Country:</label>
+    <select id="country" name="country">
+        <option value="us">USA</option>
+        <option value="in">India</option>
+        <option value="uk">UK</option>
+    </select><br><br>
+    <button type="submit">Submit</button>
+</form>
+
+<!-- Tables -->
+<h2>3. Table</h2>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>1</td>
+        <td>Avinash</td>
+        <td>M</td>
+        <td>avinash.m@example.com</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Sahana</td>
+        <td>M</td>
+        <td>sahana.m@example.com</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>Lashvik</td>
+        <td>Abhidhyan</td>
+        <td>lashvik.abhidhyan@example.com</td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- Calendar -->
+<h2>4. Calendar</h2>
+<input type="date" class="calendar">
+
+<!-- Tooltip -->
+<h2>5. Tooltip</h2>
+<div class="tooltip">Hover over me
+    <span class="tooltiptext">Tooltip text</span>
+</div>
+
+<!-- Popup -->
+<h2>6. Popup</h2>
+<button onclick="showPopup()">Show Popup</button>
+<div id="overlay" class="overlay" onclick="closePopup()"></div>
+<div id="popup" class="popup">
+    <div class="popup-header">Popup Header</div>
+    <div class="popup-content">This is a modal popup example.</div>
+    <button onclick="closePopup()">Close</button>
+</div>
+
+<!-- Drag and Drop -->
+<h2>7. Drag and Drop</h2>
+<div id="drag1" class="draggable" draggable="true" ondragstart="dragStart(event)">Drag Me</div>
+<div class="drag-drop-area" ondragover="allowDrop(event)" ondrop="drop(event)">
+    Drop Here
+</div>
+
+<!-- Mouse Hover -->
+<h2>8. Mouse Hover</h2>
+<div class="hover-area">Hover over this box to see the effect.</div>
+</body>
+</html>
